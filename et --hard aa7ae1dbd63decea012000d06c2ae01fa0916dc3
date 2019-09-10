@@ -1,0 +1,417 @@
+[33mcommit 7b0d7cd7df0ada46f5d69c40d2ad4d423e55dbc8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Jian Bo <q94130@qq.com>
+Date:   Tue Sep 10 17:00:29 2019 +0800
+
+    关键字替换
+
+[33mcommit 26cb02f7dd99d5c44b3b8b3a30cb96c3ef786dc1[m
+Author: Jian Bo <q94130@qq.com>
+Date:   Tue Sep 10 16:52:45 2019 +0800
+
+    关键字替换
+
+[33mcommit 92cc4ca9ba22442c54f36eec8b8e9e6bb11db541[m
+Author: Jian Bo <q94130@qq.com>
+Date:   Tue Sep 10 16:41:44 2019 +0800
+
+    关键字替换
+
+[33mcommit aa7ae1dbd63decea012000d06c2ae01fa0916dc3[m[33m ([m[1;33mtag: v89[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Dec 17 16:20:23 2017 +0100
+
+    Remove single process mode
+    
+    It wasn't used anymore after the previous commit.
+
+[33mcommit 5aeb67e3cdbc8ccdb4496b8d87ec7cfb2d6fb8ad[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Dec 10 13:29:30 2017 +0100
+
+    Switch to Xposed Installer's UID/GID in logcat/app service
+    
+    These two access files written by Xposed Installer. If they're running
+    with the same permissions as Xposed Installer, the files and directories
+    don't need to be world-readable/writable.
+    
+    Note that even before, those processes didn't have any special
+    permissions, despite UID 0. That's because they don't have the
+    DAC_OVERRIDE capability, which would ignore file permissions.
+    
+    So instead of being able to read/write root's files, we can now
+    read/write Xposed Installer's file (plus files readable/writable by
+    anyone).
+    
+    One problem is that in order to determine the UID/GID of the Xposed
+    Installer, the process needs to run in app context. But from this
+    context, SELinux doesn't allow changing the UID anymore.
+    
+    Therefore, the UID/GID needs to be determined in some other way. This is
+    done via a separate process which stats the directory and returns the
+    result via shared memory. The processes which want to change their
+    UID/GID can then do this before switching their context.
+    
+    This conflicts with single-process service mode (which was used as an
+    optimization when SELinux is disabled) because only processes with
+    special UIDs can add services. Therefore, we always need to use two
+    services, one running as root in system context and one running with
+    Xposed Installer's permissions in app context. The latter is actually
+    processing requests, the first one is used for registering the services.
+    
+    It also requires that the logcat process runs with Xposed Installer's
+    permission, but having AID_LOG as secondary group is sufficient to read
+    all logcat entries.
+
+[33mcommit ab86a1205a409a1532982e1c0514458a91946802[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Dec 9 09:29:17 2017 +0100
+
+    Clone objects directly to the target class
+    
+    Cloning an object with a different size causes some checks to fail. Even
+    though the proper target class will be set almost immediately, this
+    sitation can occur, especially under high load and with certain debug
+    features enabled. So better create the new object with the correct
+    class. Requires a change in the ART projects as well.
+
+[33mcommit 558b34bd6672b12483b8b8f0e681a88a73b4baed[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Dec 9 09:10:24 2017 +0100
+
+    Use Handles in case ART objects get moved
+    
+    It's rather unlikely that this happens while these methods are running,
+    but let's be on the safe side. Also, raw pointers fail in heap poisoning
+    and object pointer poisoning mode.
+
+[33mcommit a8ab899dbefeeaca35da03d80f4b026bc7c9d200[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Nov 26 10:39:32 2017 +0100
+
+    Suspend threads when installing instrumentation
+
+[33mcommit 4b9a7a612c180dc47019724a8e66e79f4f5e7e83[m[33m ([m[1;33mtag: v88.2[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Oct 29 13:26:52 2017 +0100
+
+    Add missing SDK version check
+
+[33mcommit 3d26858b7c7e99b6fd599b76a89378d7925c4f3c[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Oct 29 13:13:49 2017 +0100
+
+    Implement XposedBridge.invalidateCallersNative()
+
+[33mcommit b00d9904a029b25cbe2cf053c84cd12a0abcc891[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Oct 15 21:01:20 2017 +0200
+
+    [Xposed] No longer change the object size of TypedArray
+    
+    The XTypedArray class has no more additional fields on Java side now,
+    so this hack is obsolete. Instead, verify that this claim is actually
+    correct.
+
+[33mcommit f2a7379509d99cbf3aea7685a1a5f7bb7e5701c8[m[33m ([m[1;33mtag: v88.1[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Mon Oct 9 22:08:50 2017 +0200
+
+    Add XposedBridge.removeFinalFlagNative()
+
+[33mcommit 0307d5cd9612a9ec18ae8ed8b58e25d4ea3199d5[m[33m ([m[1;33mtag: v88[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Fri Oct 6 13:32:14 2017 +0200
+
+    Let logcat be the child process of xposed_logcat
+    
+    The previous order was a bit confusing. It's more logical to think of
+    the daemon as the main process which is closely connected to Xposed,
+    with the logcat process as subprocess that just delivers the log data.
+
+[33mcommit 39b8b94025d0e10f3f2706ff897c1dff90e1f878[m
+Author: rovo89 <android@robv.de>
+Date:   Thu Oct 5 18:54:37 2017 +0200
+
+    Set UID for the logcat
+    
+    Required on latest Samsung devices on Nougat.
+
+[33mcommit 150e75abc59c7519c7d41634f642d5a17eed16ed[m
+Author: rovo89 <android@robv.de>
+Date:   Thu Oct 5 18:47:30 2017 +0200
+
+    Increase pipe size for logcat
+    
+    When the system is very busy, this can help a bit to get more logs.
+    Otherwise, when the pipe runs full, logcat will not be able to send more
+    output and will quit.
+
+[33mcommit cfe4b48f9c288566ccb29f95bde6ae3d5e89d7ea[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Sep 30 18:33:02 2017 +0200
+
+    Adjust BASE_DIR for File-Based Encryption
+
+[33mcommit e665342effed4df5131c52cf3b5e362cba257d16[m
+Author: rovo89 <android@robv.de>
+Date:   Mon Oct 24 21:19:55 2016 +0200
+
+    Adjust for Nougat
+
+[33mcommit b3ba245ad04cd485699fb1d2ebde7117e58214ff[m[33m ([m[1;33mtag: v87[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Nov 19 21:18:21 2016 +0100
+
+    Close certain files temporarily before forking
+    
+    This is to work around a new security feature introduced by Google in
+    the November 16 patches. It would abort the runtime if files are open
+    that are not whitelisted. To avoid this, we close the files ourselves
+    and reopen them after Zygote has forked. The mechanism is the same that
+    Google has introduced, with a few modifications to fit Xposed's needs.
+    
+    This requires also a change on the Java side.
+    
+    Fixes rovo89/XposedBridge#129.
+
+[33mcommit c851ed911c87b7dc48bb33d019e835dc1066b886[m[33m ([m[1;33mtag: v86[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Mon Jun 27 22:05:24 2016 +0200
+
+    Fix: className should be NULL in Zygote
+
+[33mcommit c952eaeeb8d22604ac12d51b3560bcac6aa712b4[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Jun 26 13:50:17 2016 +0200
+
+    Enable warnings about unused parameters
+    
+    At least for app_process and libxposed_art. Dalvik itself has a few
+    functions in its headers which violate this strict rule.
+
+[33mcommit 10a878536670153f2d8c2661922448007f014a60[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Jun 26 13:18:03 2016 +0200
+
+    Refactor init logic
+    
+    Moved more stuff to libxposed_common.cpp and split initialization into
+    separate methods.
+
+[33mcommit 199391b5a3d707451456d0976f3e1ec4a9d90f50[m
+Author: rovo89 <android@robv.de>
+Date:   Fri Jun 24 19:51:35 2016 +0200
+
+    Don't use deprecated -Wunreachable-code
+
+[33mcommit d5a4dad1c1a184230c6b78707b47f37a01bf6a89[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Jun 11 14:10:30 2016 +0200
+
+    Fix typos in error messages
+
+[33mcommit 8a2f511e56614212cbf058e23eb8634cc1b56984[m[33m ([m[1;33mtag: v85[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Sat May 28 12:50:19 2016 +0200
+
+    Don't include generic crash logs by default
+    
+    The crashes can be caused by anything, not just Xposed or ART.
+    This sometimes leads to confusion, and the crash log itself is often
+    not even helpful because other relevant information isn't included.
+    
+    Now that it's possible to enable a full logcat, don't include those
+    crashes in the "normal" logs.
+
+[33mcommit 9a54ffbf1da3f2648b0f812c821a4ef75b0db466[m
+Author: rovo89 <android@robv.de>
+Date:   Wed May 18 21:05:40 2016 +0200
+
+    Add an option to save a full logcat
+    
+    Can be activated by creating a file:
+      /data/data/de.robv.android.xposed.installer/conf/log_all
+    
+    Could be useful to capture logcats for reporting bugs, especially for
+    boot loops.
+
+[33mcommit 894ccc1081f917c6d6ddb61a1ef8b730898e0082[m
+Author: rovo89 <android@robv.de>
+Date:   Mon May 16 20:46:26 2016 +0200
+
+    Start Xposed logcat daemon after Xposed services
+    
+    Allows us to read settings from /data via the services a bit earlier.
+    There's only a small chance that errors will occur while the services
+    start, which would now no longer be visible in the error.log (still in
+    the logcat though). However, even writing the logfile requires some
+    similar mechanisms as the services (e.g. SELinux context switches), so
+    the overall impact is very small.
+
+[33mcommit cc0d213eace96cefefb19971f6f027833b0b054c[m
+Author: rovo89 <android@robv.de>
+Date:   Sun May 8 12:15:50 2016 +0200
+
+    Fix a racing condition in ZygoteService
+    
+    The low-level logic for the ZygoteService uses one server process and
+    multiple client threads in the Zygote process(es). Data is transferred
+    between these threads using shared memory, a mutex and a condition
+    variable. Whenever one of the threads wants to start an operation, it
+    has to wait until the shared memory is in the correct state.
+    
+    With pthread_cond_signal(), it was possible that not the correct thread
+    woke up. For example, client A might have woken up client B, leaving
+    the server thread sleeping and the operation would never be finished.
+    Similarly, the server might not have woken up the client whose request
+    it was currently serving, but a different client which was waiting to
+    start a new request.
+    
+    Using pthread_cond_broadcast() fixes it, the checks whether the threads
+    should really do something are already in place.
+    
+    Fixes #152.
+
+[33mcommit 2071cfbb70d55b83012e524b47bfdc0ba18a679b[m
+Author: rovo89 <android@robv.de>
+Date:   Thu May 5 10:53:17 2016 +0200
+
+    Don't load Xposed for minimal framework
+    
+    When the device is encrypted and a password has to be entered on boot,
+    a tmpfs is mounted on /data, i.e. the real /data partition isn't
+    available. Therefore, it doesn't make much sense to load Xposed as we
+    wouldn't be able to load the modules anyway.
+
+[33mcommit 537332f4b881ebc26571355b00a51c9a9be08417[m[33m ([m[1;33mtag: v84[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Tue May 3 19:56:04 2016 +0200
+
+    Revert special handling for HTC's ub.jar
+    
+    This basically reverts e4142329d6b1b99e38f4b412629d60712327b5e6, which
+    used to enforce recompiling ub.odex. This is no longer necessary with
+    the latest fix in Xposed's ART variant, as they allow apps to run
+    directly from the .odex file if it couldn't be recompiled.
+
+[33mcommit e4142329d6b1b99e38f4b412629d60712327b5e6[m[33m ([m[1;33mtag: v83[m[33m, [m[1;33mtag: v82[m[33m, [m[1;33mtag: v81[m[33m, [m[1;33mtag: v80[m[33m, [m[1;33mtag: v79[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Wed Dec 9 21:07:57 2015 +0100
+
+    Adjust SYSTEMSERVERCLASSPATH for HTC devices
+    
+    They make use of a HtcDeviceInfoManager class from /system/framework/ub.jar
+    in the ActivityManagerService.  This works fine on odex'ed ROMs because
+    the class is precompiled. But with Xposed, the odex file can't be used
+    as-is and has to be recompiled before. This would be done later by the
+    PackageManagerService, but then it's too late.
+    
+    As a solution, add ub.jar to the SYSTEMSERVERCLASSPATH if it exists.
+    In the end, it's exactly that: A class which is used by the system server.
+
+[33mcommit 653c5eaf7281c9c8a6d981106d084cc98059544d[m[33m ([m[1;33mtag: v78[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Nov 15 16:35:52 2015 +0100
+
+    Fix invokeOriginalMethod()
+    
+    In most cases, invokeOriginalMethodNative() is called from
+    handleHookedMethod() with the already resolved original method.
+    
+    However, it's also allowed to call it via invokeOriginalMethod().
+    In that case, it's possible that the method is actually the hooked one.
+    Make sure to resolve it to the original one if the second parameter is
+    zero. The ART variant will be changed to set it to 1 before calling
+    handleHookedMethod().
+
+[33mcommit 27f96f9e477a3cdee698e53bf2500eeed1755938[m
+Author: Park Ju Hyung <qkrwngud825@gmail.com>
+Date:   Sun Oct 18 21:00:47 2015 +0900
+
+    Handle backported AndroidRuntime::start()
+    
+    Samsung decided to backport this change into Android 5.0(e.g. N900S).
+    Consider sdk21 can differ too.
+    
+    Signed-off-by: Park Ju Hyung <qkrwngud825@gmail.com>
+
+[33mcommit 2d2780430208b897d134dbd5a531c1a209329ee4[m
+Author: rovo89 <android@robv.de>
+Date:   Sun Nov 15 14:01:51 2015 +0100
+
+    Turn on warnings (and handle them as errors)
+    
+    This helped to find a bug and keep the code clean.
+
+[33mcommit bbf94636935e32ee968267711fce1a015536f7e2[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Nov 14 22:04:50 2015 +0100
+
+    Turn invokeOriginalMethodNative() into a fast native method
+    
+    It's not doing more than Method.invoke(), which is also marked as fast
+    native.
+
+[33mcommit f61eb3778d9aad5b5f19ac62cbffba6c3e41f7d3[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Nov 14 21:56:52 2015 +0100
+
+    Change security context for app service
+    
+    Starting with Marshmallow, Android assigns SELinux context levels to
+    app processes and files, so Xposed needs to follow this.
+
+[33mcommit 0302691aed279ddf17a3a3ab6095c8a8644ece87[m
+Author: rovo89 <android@robv.de>
+Date:   Sat Nov 14 21:53:30 2015 +0100
+
+    Adjust for Marshmallow ART changes
+    
+    ArtMethod has moved from the art::mirror to the art namespace.
+    Also a few method signatures have slightly changed.
+
+[33mcommit 1ace35e048f490e6fdcdfdea18db039a9c988c6e[m
+Author: rovo89 <android@robv.de>
+Date:   Wed Nov 11 21:42:06 2015 +0100
+
+    Merge Marshmallow changes to app_process
+    
+    - Add mips64 support to app_process.
+    - app_main missing include for sys/stat.h
+    - Better systrace slices for application startup.
+    
+    Not merged yet:
+    - Frameworks/base: Turn on -Wall -Werror in cmds
+      (requires corrections in many Xposed-specific places)
+
+[33mcommit f1aba391b435340a18d275d2a086faf9d013d9d8[m
+Author: rovo89 <android@robv.de>
+Date:   Wed Nov 11 21:38:22 2015 +0100
+
+    Clean up make files
+    
+    Remove obsolete settings for ART on KitKat, add some for Marshmallow.
+    Also adjust whitespace to two leading spaces.
+
+[33mcommit d0551ccb86f27e7bc34953bc16d4ca9754be560b[m[33m ([m[1;33mtag: v75[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Wed Oct 7 21:34:58 2015 +0200
+
+    Handle different variants of AndroidRuntime::start()
+    
+    In Android 5.1.1_r19, Google introduced an additonal parameter for this
+    method. We need to detect which one the ROM uses and call it.
+    
+    This assumes that the mangled name is consistent across all ROMs and
+    that the object instance is implicitely handled as first parameter
+    to the method. On Android 5.0, we assume that this change is not
+    merged. If required, the dynamic way could simply be enabled for this
+    version as well.
+    
+    Fixes #71.
+
+[33mcommit 6a8c2db5523377742a2c40fbd317b559e46b386f[m[33m ([m[1;33mtag: v74[m[33m)[m
+Author: rovo89 <android@robv.de>
+Date:   Thu Sep 10 19:57:59 2015 +0200
+
+    Adjust for a change in Xposed's ART variant
