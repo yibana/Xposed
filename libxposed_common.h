@@ -14,7 +14,7 @@ namespace xposed {
 #define CLASS_XPOSED_BRIDGE  "com/power/android/dance/DreamBridge"
 #define CLASS_XRESOURCES     "android/content/res/XResources"
 #define CLASS_MIUI_RESOURCES "android/content/res/MiuiResources"
-#define CLASS_ZYGOTE_SERVICE "dcom/power/android/dance/services/ZygoteService"
+#define CLASS_ZYGOTE_SERVICE "com/power/android/dance/services/ZygoteService"
 #define CLASS_FILE_RESULT    "com/power/android/dance/services/FileResult"
 
 
