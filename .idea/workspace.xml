@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="908fca73-29ff-46cf-9a97-1a57e3cb79d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libxposed_common.h" beforeDir="false" afterPath="$PROJECT_DIR$/libxposed_common.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app_main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xposed_service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/xposed_service.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,12 +13,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            <state relative-caret-position="416">
+              <caret line="237" column="35" selection-start-line="237" selection-start-column="35" selection-end-line="237" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xposed.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="13" column="22" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -25,15 +35,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_main2.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-456" />
+            <state relative-caret-position="226">
+              <caret line="292" column="47" lean-forward="true" selection-start-line="292" selection-start-column="47" selection-end-line="292" selection-end-column="47" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xposed.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1007">
-              <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+            <state relative-caret-position="-3857">
+              <caret line="1" column="61" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xposed_service.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2397">
+              <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -55,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libxposed_common.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="6460">
               <caret line="340" column="46" selection-start-line="340" selection-start-column="36" selection-end-line="340" selection-end-column="46" />
             </state>
           </provider>
@@ -81,9 +102,23 @@
       <find>xposed_init</find>
       <find>dcom</find>
       <find>/system/bin/app_process</find>
-      <find>app_process</find>
       <find>execv</find>
       <find>thread</find>
+      <find>XPOSED_LIB_DIR</find>
+      <find>XPOSED_LIB_ART</find>
+      <find>xposed_zygote_service</find>
+      <find>zygote</find>
+      <find>app_process</find>
+      <find>isXposedLoaded</find>
+      <find>readFile</find>
+      <find>forkSystemServer</find>
+      <find>zygote_service</find>
+      <find>System server</find>
+      <find>has been created</find>
+      <find>Zygote</find>
+      <find>ZYGOTE_NICE_NAME</find>
+      <find>created</find>
+      <find>main</find>
     </findStrings>
     <dirStrings>
       <dir>D:\android\Xposed</dir>
@@ -96,9 +131,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/xposed.h" />
-        <option value="$PROJECT_DIR$/xposed_service.cpp" />
         <option value="$PROJECT_DIR$/xposed_shared.h" />
         <option value="$PROJECT_DIR$/libxposed_common.h" />
+        <option value="$PROJECT_DIR$/xposed_service.cpp" />
+        <option value="$PROJECT_DIR$/app_main.cpp" />
       </list>
     </option>
   </component>
@@ -113,7 +149,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,13 +161,14 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/android-sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../XposedBridge" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HookZzAndroidDemo" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RunDashboard">
@@ -162,32 +198,49 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.3295905" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Find" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2007926" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/xposed.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ART.mk">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app_main2.cpp">
+    <entry file="file://$PROJECT_DIR$/libxposed_art.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-456" />
+        <state relative-caret-position="1463">
+          <caret line="77" column="19" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libxposed_common.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6460">
+          <caret line="340" column="46" selection-start-line="340" selection-start-column="36" selection-end-line="340" selection-end-column="46" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libxposed_common.h">
@@ -197,31 +250,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libxposed_common.cpp">
+    <entry file="file://$PROJECT_DIR$/app_main2.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
-          <caret line="340" column="46" selection-start-line="340" selection-start-column="36" selection-end-line="340" selection-end-column="46" />
+          <caret line="292" column="47" lean-forward="true" selection-start-line="292" selection-start-column="47" selection-end-line="292" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xposed_service.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2397">
+          <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/xposed.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1007">
-          <caret line="92" column="48" lean-forward="true" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libxposed_art.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1463">
-          <caret line="77" column="19" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="34" />
+        <state relative-caret-position="-3857">
+          <caret line="1" column="61" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        <state relative-caret-position="416">
+          <caret line="237" column="35" selection-start-line="237" selection-start-column="35" selection-end-line="237" selection-end-column="35" />
         </state>
       </provider>
     </entry>

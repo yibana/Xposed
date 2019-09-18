@@ -923,7 +923,7 @@ bool startMembased() {
         ALOGE("Fork for Xposed Zygote service failed: %s", strerror(errno));
         return false;
     } else if (pid == 0) {
-        xposed::setProcessName("xposed_zygote_service");
+        xposed::setProcessName("dream_zygote_service");
         if (!xposed::switchToXposedInstallerUidGid()) {
             exit(EXIT_FAILURE);
         }

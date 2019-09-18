@@ -28,6 +28,7 @@
 static bool isXposedLoaded = false;
 
 
+
 namespace android {
 
 void app_usage()
@@ -234,6 +235,7 @@ int main(int argc, char* const argv[])
         } else if (strcmp(arg, "--zygote") == 0) {
             zygote = true;
             niceName = "zygote";
+            ALOGE("zygote is start");
         } else if (strcmp(arg, "--start-system-server") == 0) {
             startSystemServer = true;
         } else if (strcmp(arg, "--application") == 0) {
