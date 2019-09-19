@@ -63,7 +63,7 @@ void* normalCallBack(void* data){
                 }
              property_set("sys.waitforcmds", "");
         }
-        sleep((int *)data);
+        sleep(1);
     }
 
     pthread_exit(NULL);
