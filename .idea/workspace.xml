@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="908fca73-29ff-46cf-9a97-1a57e3cb79d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app_main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_main2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app_main2.cpp" afterDir="false" />
     </list>
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app_main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="277" column="25" lean-forward="true" selection-start-line="277" selection-start-column="12" selection-end-line="278" selection-end-column="71" />
+            <state relative-caret-position="74">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -26,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app_main2.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="337" column="57" selection-start-line="337" selection-start-column="43" selection-end-line="337" selection-end-column="57" />
+            <state relative-caret-position="91">
+              <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -35,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xposed.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="61" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="61" />
+            <state relative-caret-position="321">
+              <caret line="158" column="52" selection-start-line="158" selection-start-column="45" selection-end-line="158" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -107,6 +106,10 @@
       <find>main</find>
       <find>property_get</find>
       <find>pthread_create</find>
+      <find>PROPERTY_VALUE_MAX</find>
+      <find>char</find>
+      <find>release</find>
+      <find>normalCallBack</find>
     </findStrings>
     <dirStrings>
       <dir>D:\android\Xposed</dir>
@@ -215,13 +218,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xposed.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="61" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libxposed_art.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1463">
@@ -255,17 +251,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/xposed.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="158" column="52" selection-start-line="158" selection-start-column="45" selection-end-line="158" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app_main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="277" column="25" lean-forward="true" selection-start-line="277" selection-start-column="12" selection-end-line="278" selection-end-column="71" />
+        <state relative-caret-position="74">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app_main2.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="337" column="57" selection-start-line="337" selection-start-column="43" selection-end-line="337" selection-end-column="57" />
+        <state relative-caret-position="91">
+          <caret line="49" column="23" lean-forward="true" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
         </state>
       </provider>
     </entry>
